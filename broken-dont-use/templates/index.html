@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vibe Check AI 🎭 | Gen Z Emotion Classifier</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <span class="logo-icon">🎭</span>
+                <h1>Vibe Check AI</h1>
+            </div>
+            <p class="tagline">Decoding Gen Z emotions, one message at a time ✨</p>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="content-grid">
+                <!-- Left Column: Input & Results -->
+                <div class="left-column">
+                    <!-- Input Section -->
+                    <section class="input-section">
+                        <div class="input-container">
+                            <h2>Drop your message here 💬</h2>
+                            <form method="POST" action="/">
+                                <div class="input-wrapper">
+                                    <textarea 
+                                        id="messageInput" 
+                                        name="user_message"
+                                        placeholder="e.g., 'omg this is literally the best thing ever fr fr 🔥'"
+                                        maxlength="200"
+                                        required>{{ user_message }}</textarea>
+                                    <div class="char-count">
+                                        <span id="charCount">{{ user_message|length if user_message else 0 }}</span>/200
+                                    </div>
+                                </div>
+                                <button id="classifyBtn" class="classify-btn" type="submit">
+                                    <span class="btn-text">Read the Vibes</span>
+                                    <span class="btn-icon">🔮</span>
+                                </button>
+                                {% if intent %}
+                                <div class="intent-result-compact">Intent: <strong>{{ intent }}</strong></div>
+                                {% endif %}
+                            </form>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Right Column: Reserved for future functionality -->
+                <div class="right-column">
+                    <!-- Launch Study Section -->
+                    <section class="launch-section">
+                        <div class="launch-container">
+                            <h2>Launch Prolific Study 🚀</h2>
+                            <form id="studyConfigForm">
+                                <div class="config-group">
+                                    <label for="ageMin">Age Range:</label>
+                                    <div class="age-range">
+                                        <input type="number" id="ageMin" name="ageMin" value="18" min="18" max="100" required>
+                                        <span>to</span>
+                                        <input type="number" id="ageMax" name="ageMax" value="25" min="18" max="100" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="config-group">
+                                    <label for="countries">Countries:</label>
+                                    <select id="countries" name="countries" multiple required>
+                                        <option value="US" selected>United States</option>
+                                        <option value="GB" selected>United Kingdom</option>
+                                        <option value="CA">Canada</option>
+                                        <option value="AU">Australia</option>
+                                        <option value="DE">Germany</option>
+                                        <option value="FR">France</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="config-group">
+                                    <label for="participants">Number of Participants:</label>
+                                    <input type="number" id="participants" name="participants" value="10" min="1" max="100" required>
+                                </div>
+                                
+                                <div class="config-group">
+                                    <label for="reward">Reward (USD):</label>
+                                    <input type="number" id="reward" name="reward" value="0.50" min="0.10" max="10.00" step="0.10" required>
+                                </div>
+                                
+                                <button id="launchStudyBtn" class="launch-btn" type="button" disabled>
+                                    <span class="btn-text">Launch Study</span>
+                                    <span class="btn-icon">🚀</span>
+                                </button>
+                            </form>
+                            
+                            <button id="showStudyStatusBtn" class="launch-btn" style="display:none; margin-top: 10px;">Show Study Status</button>
+
+                            <div class="study-status" id="studyStatus" style="display: none;">
+                                <div class="status-content">
+                                    <h3>Study Status</h3>
+                                    <div class="status-info">
+                                        <p><strong>Study ID:</strong> <span id="studyId">-</span></p>
+                                        <p><strong>Status:</strong> <span id="studyStatusText">-</span></p>
+                                        <p><strong>Completion Code:</strong> <span id="completionCode">-</span></p>
+                                        <p><strong>Launched:</strong> <span id="studyElapsed">-</span></p>
+                                        <p><strong>Responses:</strong> <span id="studyResponses">-</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Built with 💜</p>
+        </footer>
+    </div>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html> 
